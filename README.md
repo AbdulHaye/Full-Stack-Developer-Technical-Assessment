@@ -2,7 +2,7 @@
 
 A full-stack task management system with React frontend and Node.js backend.
 
-![App Screenshot](screenshots/app-preview.png) <!-- Add your screenshot if available -->
+
 
 ## Features
 
