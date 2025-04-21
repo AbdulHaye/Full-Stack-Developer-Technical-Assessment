@@ -11,10 +11,16 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ['https://full-stack-developer-technical-assessment.vercel.app/', 'http://localhost:3000'],
-  credentials: true,
-}));
-app.use(express.json());
+    origin: ['https://full-stack-developer-technical-assessment.vercel.app', 'http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
+  
+  // Handle preflight requests
+  app.options('*', cors());
+  
+  app.use(express.json());
 
 // Connect to MongoDB only once
 let isConnected = false;
