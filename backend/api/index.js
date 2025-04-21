@@ -53,6 +53,13 @@ async function connectDB() {
   }
 }
 
+app.options('*', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.status(200).end();
+  });
 // Routes
 app.use('/api/tasks', taskRoutes);
 app.use('/api/auth', authRoutes);
