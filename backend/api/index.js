@@ -1,18 +1,5 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const app = express();
+// backend/api/index.js
+const app = require('../app'); // Import your Express app
+const serverless = require('serverless-http'); // Wrapper for serverless deployment
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error(err));
-
-app.get('/', (req, res) => {
-  res.send('Hello from Vercel with MongoDB!');
-});
-
-// Export the Express app as a serverless function
-module.exports = app;
+module.exports = serverless(app);
