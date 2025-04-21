@@ -3,26 +3,23 @@ const serverless = require('serverless-http');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const taskRoutes = require('../routes/taskRoutes'); // adjust paths
+const taskRoutes = require('../routes/taskRoutes');
 const authRoutes = require('../routes/authRoutes');
 const errorHandler = require('../middleware/errorMiddleware');
 
 const app = express();
 
-// Middleware
+// CORS Middleware
 app.use(cors({
-    origin: ['https://full-stack-developer-technical-assessment.vercel.app', 'http://localhost:3000'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
-  
-  // Handle preflight requests
-  app.options('*', cors());
-  
-  app.use(express.json());
+  origin: ['https://full-stack-developer-technical-assessment.vercel.app', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-// Connect to MongoDB only once
+app.use(express.json());
+
+// MongoDB Connection
 let isConnected = false;
 
 async function connectDB() {
@@ -31,18 +28,27 @@ async function connectDB() {
   isConnected = true;
 }
 
-// Use routes
+// Routes
 app.use('/api/tasks', taskRoutes);
 app.use('/api/auth', authRoutes);
 
-// Error handling
+// Global Error Handler
 app.use(errorHandler);
 
-// Wrap app with serverless
+// Wrap with serverless
 const handler = serverless(app);
 
-// Export as Vercel API function
+// Final export for Vercel
 module.exports = async (req, res) => {
+  // Handle CORS preflight requests manually
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', 'https://full-stack-developer-technical-assessment.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    return res.status(200).end();
+  }
+
   await connectDB();
   return handler(req, res);
 };
