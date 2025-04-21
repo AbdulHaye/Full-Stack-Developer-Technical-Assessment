@@ -1,4 +1,3 @@
-// backend/routes/authRoutes.js
 const express = require('express');
 const router = express.Router();
 const {
@@ -6,10 +5,10 @@ const {
   loginUser,
   getMe,
 } = require('../controllers/authController');
-const { protect } = require('../middleware/authMiddleware');
+const { protect } = require('../middleware/authMiddleware'); // keep protect for routes that need auth
 
-router.post('/register', registerUser);
+router.post('/register', registerUser); // No protection middleware here
 router.post('/login', loginUser);
-router.get('/me', protect, getMe);
+router.get('/me', protect, getMe); // This route requires authentication
 
 module.exports = router;
