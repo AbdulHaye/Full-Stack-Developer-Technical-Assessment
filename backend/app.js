@@ -11,10 +11,14 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "*", // Or specify your frontend domain instead of "*"
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: ['https://full-stack-developer-technical-assessment.vercel.app', 'http://localhost:3000'], // Allowed origins
+  credentials: true, // Allow credentials like cookies
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 }));
+
+// Ensure preflight requests (OPTIONS) are handled correctly
+app.options('*', cors());
 app.use(express.json());
 
 // Database connection
