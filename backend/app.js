@@ -10,7 +10,13 @@ const { errorHandler } = require('./middleware/errorMiddleware'); // Fixed impor
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://full-stack-developer-technical-assessment.vercel.app',
+    'http://localhost:3000' // For local development
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Database connection
