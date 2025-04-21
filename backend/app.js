@@ -11,11 +11,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: [
-    'https://full-stack-developer-technical-assessment.vercel.app',
-    'http://localhost:3000' // For local development
-  ],
-  credentials: true
+  origin: "*", // Or specify your frontend domain instead of "*"
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
 
