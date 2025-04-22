@@ -35,8 +35,8 @@ const Header = () => {
                 </NavDropdown>
               ) : (
                 <Link to="/login">
-                  <Nav.Link>
-                    <i className="fas fa-user"></i> Sign In
+                  <Nav.Link style={{ textDecoration: "none" }}>
+                    <i className="fas fa-user" style={{ textDecoration: "none" }}></i> Sign In
                   </Nav.Link>
                 </Link>
               )}
