@@ -10,15 +10,7 @@ const { errorHandler } = require('./middleware/errorMiddleware'); // Fixed impor
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: ['https://full-stack-developer-technical-assessment.vercel.app', 'http://localhost:3000'], // Allowed origins
-  credentials: true, // Allow credentials like cookies
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-}));
-
-// Ensure preflight requests (OPTIONS) are handled correctly
-app.options('*', cors());
+app.use(cors());
 app.use(express.json());
 
 // Database connection
@@ -33,5 +25,5 @@ app.use('/api/auth', authRoutes);
 // Error handling middleware
 app.use(errorHandler);
 
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

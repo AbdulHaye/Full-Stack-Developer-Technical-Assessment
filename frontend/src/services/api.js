@@ -2,7 +2,8 @@
 import axios from 'axios';
 
 const API = axios.create({ 
-  baseURL: 'https://full-stack-developer-technical-assessment-6l1ukc833.vercel.app/api' // Make sure this matches your backend port
+  baseURL: 'http://localhost:5000/api' // Make sure this matches your backend port
+  // baseURL: 'https://full-stack-developer-technical-assessment-6l1ukc833.vercel.app/api' // Make sure this matches your backend port
 });
 
 // Add request interceptor for auth tokens

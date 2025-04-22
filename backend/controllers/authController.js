@@ -4,7 +4,9 @@ const config = require('../config/config');
 
 // Generate JWT token
 const generateToken = (id) => {
-  return jwt.sign({ id }, config.jwtSecret, { expiresIn: config.tokenExpiration });
+  return jwt.sign({ id }, config.jwtSecret, {
+    expiresIn: config.tokenExpiration,
+  });
 };
 
 // Register a new user
@@ -46,6 +48,7 @@ exports.registerUser = async (req, res, next) => {
 exports.loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+
     const user = await User.findOne({ email });
 
     if (user && (await user.comparePassword(password))) {
